@@ -49,7 +49,10 @@ function launchConfetti() {
     }, 3200);
 }
 
-noBtn.addEventListener("mouseover", () => {
+function handleNoInteraction(event) {
+    if (event) {
+        event.preventDefault();
+    }
     if (!hasEscaped) {
         hasEscaped = true;
         noBtn.classList.add("escaped");
@@ -59,7 +62,13 @@ noBtn.addEventListener("mouseover", () => {
 
     const randomMsg = messages[Math.floor(Math.random() * messages.length)];
     tease.innerText = randomMsg;
-});
+}
+
+// Desktop hover
+noBtn.addEventListener("mouseover", handleNoInteraction);
+// Mobile taps
+noBtn.addEventListener("touchstart", handleNoInteraction);
+noBtn.addEventListener("click", handleNoInteraction);
 
 // Popup functions
 function openPopup() {
@@ -70,3 +79,4 @@ function openPopup() {
 function closePopup() {
     document.getElementById("popup").style.display = "none";
 }
+
